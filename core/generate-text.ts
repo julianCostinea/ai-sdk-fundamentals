@@ -1,12 +1,13 @@
 import { openai } from "@ai-sdk/openai";
-import { generateText } from "ai";
+import {google} from "@ai-sdk/google";
+import { generateText, LanguageModel } from "ai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 async function main() {
   const result = await generateText({
-    model: openai("gpt-4o"),
+    model: google('gemini-1.5-flash'),
     prompt: "Tell me a joke.",
   });
 

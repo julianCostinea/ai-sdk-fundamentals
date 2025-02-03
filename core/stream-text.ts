@@ -6,7 +6,7 @@ dotenv.config();
 
 async function main() {
   const result = await streamText({
-    model: openai("gpt-4o"),
+    model: openai("gpt-3.5-turbo"),
     prompt: "Tell me a joke.",
   });
 

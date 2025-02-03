@@ -1,3 +1,4 @@
+import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
 import { generateText, streamText } from "ai";
 import dotenv from "dotenv";
@@ -6,9 +7,9 @@ import { z } from "zod";
 dotenv.config();
 
 async function main() {
-  const location = "London";
+  const location = "Odense";
   const result = await generateText({
-    model: openai("gpt-4o"),
+    model: google("gemini-1.5-flash"),
     prompt: `You are a funny chatbot. users location: ${location}`,
     tools: {
       weather: {
@@ -17,7 +18,8 @@ async function main() {
           location: z.string().describe("user's location"),
         }),
         execute: async ({ location }) => {
-          const temperature = Math.floor(Math.random() * 31); // call external api for {location}
+          // const temperature = Math.floor(Math.random() * 31); // call external api for {location}
+          const temperature = 20;
           return { temperature };
         },
       },
@@ -26,7 +28,7 @@ async function main() {
 
   if (result.toolResults && result.toolCalls) {
     const joke = await streamText({
-      model: openai("gpt-4o"),
+      model: google("gemini-1.5-flash"),
       prompt: `Tell me a joke that incorporates ${location}
                and it's current temperature (${result.toolResults[0].result.temperature})`,
     });

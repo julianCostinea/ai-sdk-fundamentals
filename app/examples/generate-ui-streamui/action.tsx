@@ -8,6 +8,7 @@ import { nanoid } from "nanoid";
 import { JokeComponent } from "./joke-component";
 import { generateObject } from "ai";
 import { jokeSchema } from "./joke";
+import { google } from "@ai-sdk/google";
 
 export interface ServerMessage {
   role: "user" | "assistant";
@@ -28,7 +29,7 @@ export async function continueConversation(
   const history = getMutableAIState();
 
   const result = await streamUI({
-    model: openai("gpt-4o"),
+    model: google('gemini-1.5-flash'),
     messages: [...history.get(), { role: "user", content: input }],
     text: ({ content, done }) => {
       if (done) {
@@ -45,15 +46,16 @@ export async function continueConversation(
         description: "Tell a joke",
         parameters: z.object({
           location: z.string().describe("the users location"),
+          age: z.number().optional().describe("the users age"),
         }),
-        generate: async function* ({ location }) {
+        generate: async function* ({ location, age }) {
           yield <div>loading...</div>;
           const joke = await generateObject({
-            model: openai("gpt-4o"),
+            model: google('gemini-1.5-flash'),
             schema: jokeSchema,
             prompt:
               "Generate a joke that incorporates the following location:" +
-              location,
+              location + 'and also incorporates their ' + age,
           });
           return <JokeComponent joke={joke.object} />;
         },

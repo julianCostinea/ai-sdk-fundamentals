@@ -23,7 +23,6 @@ export default function Home() {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          setInput("");
           setConversation((currentConversation: ClientMessage[]) => [
             ...currentConversation,
             { id: nanoid(), role: "user", display: input },
@@ -31,10 +30,8 @@ export default function Home() {
 
           const message = await continueConversation(input);
 
-          setConversation((currentConversation: ClientMessage[]) => [
-            ...currentConversation,
-            message,
-          ]);
+          setConversation((currentConversation: ClientMessage[]) => [...currentConversation, message]);
+          setInput("");
         }}
       >
         <input

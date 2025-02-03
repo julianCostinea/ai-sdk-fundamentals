@@ -1,3 +1,4 @@
+import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
 import { generateObject } from "ai";
 import dotenv from "dotenv";
@@ -7,7 +8,8 @@ dotenv.config();
 
 async function main() {
   const result = await generateObject({
-    model: openai("gpt-4o"),
+    // model: openai("gpt-4o"),
+    model: google('gemini-1.5-flash'),
     prompt: "Tell me a joke. Please incorporate the current temperature in NYC",
     schema: z.object({
       setup: z.string().describe("the setup of the joke"),
