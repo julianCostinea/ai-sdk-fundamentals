@@ -1,6 +1,6 @@
 import { google } from "@ai-sdk/google";
 import { openai } from "@ai-sdk/openai";
-import { generateText, streamText } from "ai";
+import { generateText, streamText, tool } from "ai";
 import dotenv from "dotenv";
 import { z } from "zod";
 

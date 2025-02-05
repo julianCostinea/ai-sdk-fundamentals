@@ -12,6 +12,7 @@ export default function Page() {
       <Button
         onClick={async () => {
           const result = await generateTextAction();
+          console.log('result', result);
           setGeneration(result);
         }}
       >
