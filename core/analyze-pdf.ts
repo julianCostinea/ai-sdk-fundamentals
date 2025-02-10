@@ -71,17 +71,19 @@ async function main(invoicePaths: string[]) {
     // },
   });
 
-  const floorTotalSalesTax = Math.floor(object.salesTaxTotal);
-  //get pokemon for floorTotalSalesTax from the pokemon api
-  const pokemon = (await fetch(`https://pokeapi.co/api/v2/pokemon/${floorTotalSalesTax}`).then((res) =>
-    res.json()
-  )) as Pokemon;
+  console.log(object);
 
-  console.log("pokemon", pokemon.name);
+  // const floorTotalSalesTax = Math.floor(object.salesTaxTotal);
+  // //get pokemon for floorTotalSalesTax from the pokemon api
+  // const pokemon = (await fetch(`https://pokeapi.co/api/v2/pokemon/${floorTotalSalesTax}`).then((res) =>
+  //   res.json()
+  // )) as Pokemon;
+
+  // console.log("pokemon", pokemon.name);
 }
 
-const invoicePath1 = path.join(__dirname, "invoice-1.pdf");
-const invoicePath2 = path.join(__dirname, "invoice-2.pdf");
+const invoicePath1 = path.join(__dirname, "..", "public", "assets", "invoice-1.pdf");
+const invoicePath2 = path.join(__dirname,  "..", "public", "assets", "invoice-2.pdf");
 
 main([invoicePath1, invoicePath2]).catch(console.error);
 
